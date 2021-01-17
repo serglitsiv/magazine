@@ -1,18 +1,40 @@
-<div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <img src="http://laravel-diplom-1.rdavydov.ru/storage/products/iphone_x.jpg" alt="iPhone X 64GB">
-        <div class="caption">
-            <h3>iPhone X 64GB</h3>
-            <p>71990 руб.</p>
-            <p>
-                <a href="{{ route('basket') }}" class="btn btn-primary"
-                   role="button">В корзину</a>
-                @isset($category)
-                    {{ $category->name }}
-                @endisset
-                <a href="http://laravel-diplom-1.rdavydov.ru/mobiles/iphone_x_64" class="btn btn-default"
-                   role="button">Подробнее</a>
-            </p>
+@extends('layouts.master')
+
+@section('title', 'Оформить заказ')
+
+@section('content')
+    <h1>Подтвердите заказ:</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <p>Общая стоимость заказа: <b>{{ $order->getFullPrice() }} руб.</b></p>
+            <form action="{{ route('basket-confirm') }}" method="POST">
+                <div>
+                    <p>Укажите свои имя и номер телефона, чтобы наш менеджер мог с вами связаться:</p>
+
+                    <div class="container">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-lg-offset-3 col-lg-2">Имя: </label>
+                            <div class="col-lg-4">
+                                <input type="text" name="name" id="name" value="" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <label for="phone" class="control-label col-lg-offset-3 col-lg-2">Номер
+                                телефона: </label>
+                            <div class="col-lg-4">
+                                <input type="text" name="phone" id="phone" value="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="hidden" name="_token" value="qhk4riitc1MAjlRcro8dvWchDTGkFDQ9Iacyyrkj">
+                    <br>
+                    @csrf
+                    <input type="submit" class="btn btn-success" value="Подтвердить заказ">
+                </div>
+            </form>
         </div>
     </div>
-</div>
+@endsection
