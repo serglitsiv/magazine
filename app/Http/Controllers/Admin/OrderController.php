@@ -18,4 +18,13 @@ class OrderController extends Controller
         $products = $order->products()->withTrashed()->get();
         return view('auth.orders.show', compact('order', 'products'));
     }
+
+
+  public function destroy(Order $order ){
+
+        $order->delete();
+        return back()->withInput();
+  }
+
+
 }

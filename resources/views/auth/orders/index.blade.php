@@ -35,7 +35,8 @@
                     <td>{{ $order->created_at->format('H:i d/m/Y') }}</td>
                     <td>{{ $order->calculateFullSum() }} грн.</td>
                     <td>
-                        <div class="btn-group" role="group">
+
+                        <form action="{{ route('orders.destroy', $order) }}" method="POST">
                             <a class="btn btn-success" type="button"
                                @admin
                                href="{{ route('orders.show', $order) }}"
@@ -43,7 +44,9 @@
                                href="{{ route('person.orders.show', $order) }}"
                                @endadmin
                             >Открыть</a>
-                        </div>
+                            @csrf
+                            @method('DELETE')
+                            <input class="btn btn-danger" type="submit" value="Удалить"></form>
                     </td>
                 </tr>
             @endforeach
